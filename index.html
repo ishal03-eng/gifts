@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palak's Mystery Gift Box</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #ffdee9, #b5fffc);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+    }
+    .container {
+        text-align: center;
+    }
+    h1 {
+        font-size: 2.2rem;
+        color: rgba(255, 255, 255, 0.85); /* Matte white */
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        margin-bottom: 120px;
+    }
+    .gift-box {
+        width: 180px;
+        height: 180px;
+        background: #ff4e50;
+        position: relative;
+        margin: 0 auto;
+        border-radius: 12px;
+        cursor: pointer;
+        animation: bounce 1.5s infinite;
+    }
+    .gift-box::before, .gift-box::after {
+        content: '';
+        position: absolute;
+        background: gold;
+    }
+    .gift-box::before {
+        width: 30px;
+        height: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .gift-box::after {
+        height: 30px;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .lid {
+        width: 200px;
+        height: 50px;
+        background: #ff4e50;
+        position: absolute;
+        top: -50px;
+        left: -10px;
+        border-radius: 12px 12px 0 0;
+        transform-origin: bottom;
+        transition: transform 0.6s ease;
+    }
+    .ribbon {
+        position: absolute;
+        top: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+    }
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    .message {
+        margin-top: 20px;
+        font-size: 1.5rem;
+        color: rgba(0, 0, 0, 0.7);
+        font-weight: bold;
+        min-height: 50px;
+        transition: opacity 0.5s;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Palak's Mystery Gift 🎁</h1>
+    <div class="gift-box" id="giftBox">
+        <div class="lid" id="lid"></div>
+        <div class="ribbon">🎀</div>
+    </div>
+    <div class="message" id="message">Click to open your surprise!</div>
+</div>
+
+<script>
+    const giftBox = document.getElementById('giftBox');
+    const lid = document.getElementById('lid');
+    const message = document.getElementById('message');
+
+    // Gifts for each hour of the day
+    const gifts = [
+        "💖 You are the sparkle in my life!",
+        "🌸 Every moment with you is magic.",
+        "🎶 Your laughter is my favorite song.",
+        "🍫 Sweet like chocolate, special like you.",
+        "🌙 You light up my nights and days.",
+        "💎 You’re priceless to me.",
+        "🎨 You color my world.",
+        "🌹 You are my forever flower.",
+        "✨ You make my life shine.",
+        "🍯 You’re my sweetest dream.",
+        "💌 I love you endlessly.",
+        "🎁 Today, you’re my best gift.",
+    ];
+
+    function getGiftOfTheHour() {
+        const hour = new Date().getHours();
+        return gifts[hour % gifts.length];
+    }
+
+    giftBox.addEventListener('click', () => {
+        lid.style.transform = 'rotateX(150deg)';
+        setTimeout(() => {
+            message.style.opacity = 0;
+            setTimeout(() => {
+                message.innerHTML = getGiftOfTheHour();
+                message.style.opacity = 1;
+            }, 300);
+        }, 400);
+    });
+</script>
+
+</body>
+</html>
